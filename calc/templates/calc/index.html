@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Useless calc</title>
+</head>
+<body>
+    <form id="calcForm">
+        <label>
+            Nr1:
+            <input type="number" name="nr1" />
+        </label>
+        <label>
+            Nr2:
+            <input type="number" name="nr2" />
+        </label>
+        <select name="operation">
+            <option value="add">+</option>
+            <option value="sub">-</option>
+            <option value="mul">*</option>
+            <option value="div">/</option>
+        </select>
+    </form>
+    <button onclick="calculate()">Submit</button>
+    {% if latest_operations %}
+        <div>
+            <h2>Latest operations:</h2>
+            <ul>
+                {% for op in latest_operations %}
+                    <li>[{{ op.date }}] {{ op.id }}: {{ op.calculation }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+</body>
+<script>
+    function calculate() {
+        let form = document.getElementById("calcForm");
+        let operation = form.elements.operation;
+        let nr1 = form.elements.nr1;
+        let nr2 = form.elements.nr2;
+        window.location = "/calc/" + operation.value + "/" + nr1.value + "/" + nr2.value + "/";
+    }
+</script>
+</html>
